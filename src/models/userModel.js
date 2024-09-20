@@ -23,12 +23,12 @@ const customerSchema = new mongoose.Schema({
     latitude: {
       type: Number,
     },
-    longitude: { type: true },
+    longitude: { type: Number }, // Corrected this type
   },
   address: { type: String },
 });
 
-
+// Delivery Partner Schema
 const deliveryPartnerSchema = new mongoose.Schema({
   ...userSchema.obj,
   name: {
@@ -54,16 +54,16 @@ const deliveryPartnerSchema = new mongoose.Schema({
     latitude: {
       type: Number,
     },
-    longitude: { type: true },
+    longitude: { type: Number }, // Corrected this type
   },
   address: { type: String },
-  branch:{
-    type:mongoose.Schema.Types.ObjectId,
+  branch: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Branch',
-  }
+  },
 });
 
-
+// Admin Schema
 const adminSchema = new mongoose.Schema({
   ...userSchema.obj,
   email: {
@@ -75,16 +75,13 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  role: { type: String, enum: ["DeliveryPartner"], default: "DeliveryPartner" },
-  
+  role: { type: String, enum: ["Admin"], default: "Admin" }, // Corrected role
 });
 
+// Export models individually
+const User = mongoose.model("User", userSchema);
+const Customer = mongoose.model("Customer", customerSchema);
+const DeliveryPartner = mongoose.model("DeliveryPartner", deliveryPartnerSchema);
+const Admin = mongoose.model("Admin", adminSchema);
 
-
-
-const User = mongoose.model('User', userSchema);
-const Customer = mongoose.model('Customer', customerSchema);
-const DeliveryPartner = mongoose.model('DeliveryPartner', deliveryPartnerSchema);
-const Admin = mongoose.model('Admin', adminSchema);
-
-export default {User, Customer, DeliveryPartner, Admin};
+export { User, Customer, DeliveryPartner, Admin }; 

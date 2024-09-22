@@ -1,3 +1,4 @@
+import fastify from "fastify";
 import mongoose from "mongoose";
 
 const branchSchema = new mongoose.Schema({
@@ -22,6 +23,8 @@ const branchSchema = new mongoose.Schema({
 });
 
 // Model for Branch
-const Branch = mongoose.model("Branch", branchSchema);
+export const Branch = mongoose.model("Branch", branchSchema);
 
-export default Branch;
+
+
+
